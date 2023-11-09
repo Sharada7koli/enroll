@@ -4,7 +4,7 @@ import { EnrollmentComponent } from './enrollment/enrollment.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
-
+import { ConfirmationDialogComponentComponent } from './confirmation-dialog-component/confirmation-dialog-component.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,9 +17,14 @@ export class AppComponent {
   }
 
   
-  alrMsg(){
-    alert("Please login before Enrolling");
+  alrMsg() {
+    if (!this.isLoggedIn()) {
+      const dialogRef = this._dialog.open(ConfirmationDialogComponentComponent, {
+        data: 'Please login before Enrolling',
+      });
+    }
   }
+  
 
   isLoggedIn():boolean{
     return this.authServe.isLoggedIn();
@@ -40,11 +45,6 @@ export class AppComponent {
         this.route.navigate(['/enrollment']);
       }
     });
-  // addEnroll() {
-   
-  //   // this.router.navigate(['/enroll']);
-  //   this._dialog.open(EnrollmentComponent)
-  // }
 
   
 }

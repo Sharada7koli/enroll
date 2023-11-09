@@ -6,20 +6,17 @@
     <span class="pipe">|</span>
     <a routerLink="/courses" routerLinkActive="active">Courses</a>
     <span class="pipe">|</span>
-    <!-- <ng-container *ngIf="!isLoggedIn(); else disabledLink"> -->
+    <!-- <ng-container *ngIf="isLoggedIn(); else disabledLink"> -->
       <a routerLink="/enrollment" routerLinkActive="active" (click)="alrMsg()">Enroll</a>
     <!-- </ng-container> -->
-
+  
     <!-- <ng-template #disabledLink>
       <span>
         Enroll
       </span>
-
     </ng-template> -->
     <span class="pipe">|</span>
     <a routerLink="/mattable" routerLinkActive="active">Data</a>
-    
-    
   </div>
   <span class="spacer"></span>
   <div class="action-buttons">
@@ -35,6 +32,5 @@
 </mat-toolbar>
 
 <div class="main-content">
-  
   <router-outlet></router-outlet>
 </div>

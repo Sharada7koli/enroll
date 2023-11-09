@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
 import { User } from '../user';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-enrollment',
@@ -17,7 +18,8 @@ export class EnrollmentComponent {
   topics = ['Angular', 'React', 'Vue', 'HTML', 'Java','Cloud Computing', 'AI','ML', 'Networking', 'Business Intelligence'];
   userForm: FormGroup;
 userarray:User[]=[];
-  constructor(private fb: FormBuilder, private router:Router, private enrService: ServiceService, private dialog:MatDialog) {
+  constructor(private fb: FormBuilder, private router:Router, private enrService: ServiceService,
+     private dialog:MatDialog, private snackBar: MatSnackBar) {
       this.userForm = this.fb.group({
           username: ['', Validators.required],
           email: ['', Validators.email],
@@ -35,19 +37,26 @@ userarray:User[]=[];
   }
 
   onSubmit() {
-      
-this.enrService.addEnrolls(this.userForm.value).subscribe(
-  (result:any)=>{
-  console.log(result);
-  alert("Enrolled Successfully!!");
-  this.dialog.closeAll(); 
-  this.router.navigate(['/table']);
-},
-(error) => {
-  console.error('Error:', error);
-}
-);
-}
+    this.enrService.addEnrolls(this.userForm.value).subscribe(
+      (result: any) => {
+        console.log(result);
+        this.openSnackBar('Enrolled Successfully', 'OK');
+        this.router.navigate(['/table']);
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 3000, // Set the duration of the snackbar
+      horizontalPosition: 'center', // Position the snackbar in the center
+      verticalPosition: 'bottom', // Position the snackbar at the bottom
+    });
+  }
+
 
 clearForm(){
   this.userForm.reset();
