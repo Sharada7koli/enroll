@@ -31,6 +31,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from 'src/demo';
 import { ConfirmationDialogComponentComponent } from './confirmation-dialog-component/confirmation-dialog-component.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { EnrollmentSuccessComponent } from './enrollment-success/enrollment-success.component';
 
 
 
@@ -45,6 +46,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     EnrollmentComponent,
     MattableComponent,
     ConfirmationDialogComponentComponent,
+    EnrollmentSuccessComponent,
   ],
   imports: [
     BrowserModule,

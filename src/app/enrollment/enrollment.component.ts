@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
 import { User } from '../user';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { EnrollmentSuccessComponent } from '../enrollment-success/enrollment-success.component';
 
 @Component({
   selector: 'app-enrollment',
@@ -18,8 +18,7 @@ export class EnrollmentComponent {
   topics = ['Angular', 'React', 'Vue', 'HTML', 'Java','Cloud Computing', 'AI','ML', 'Networking', 'Business Intelligence'];
   userForm: FormGroup;
 userarray:User[]=[];
-  constructor(private fb: FormBuilder, private router:Router, private enrService: ServiceService,
-     private dialog:MatDialog, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder, private router:Router, private enrService: ServiceService, private dialog:MatDialog) {
       this.userForm = this.fb.group({
           username: ['', Validators.required],
           email: ['', Validators.email],
@@ -37,26 +36,25 @@ userarray:User[]=[];
   }
 
   onSubmit() {
-    this.enrService.addEnrolls(this.userForm.value).subscribe(
-      (result: any) => {
-        console.log(result);
-        this.openSnackBar('Enrolled Successfully', 'OK');
-        this.router.navigate(['/table']);
-      },
-      (error) => {
-        console.error('Error:', error);
-      }
-    );
-  }
-
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 3000, // Set the duration of the snackbar
-      horizontalPosition: 'center', // Position the snackbar in the center
-      verticalPosition: 'bottom', // Position the snackbar at the bottom
-    });
-  }
-
+      
+this.enrService.addEnrolls(this.userForm.value).subscribe(
+  (result:any)=>{
+  console.log(result);
+  this.dialog.closeAll(); 
+  this.openEnrollmentSuccessDialog();
+  // this.router.navigate(['/table']);
+},
+(error) => {
+  console.error('Error:', error);
+}
+);
+}
+openEnrollmentSuccessDialog() {
+  this.dialog.open(EnrollmentSuccessComponent, {
+    width: '300px',
+    data: 'Enrolled Successfully!!',
+  });
+}
 
 clearForm(){
   this.userForm.reset();

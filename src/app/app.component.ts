@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { ConfirmationDialogComponentComponent } from './confirmation-dialog-component/confirmation-dialog-component.component';
+import { EnrollmentSuccessComponent } from './enrollment-success/enrollment-success.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
