@@ -1,0 +1,39 @@
+{
+  "enrollment": [
+    {
+      "id": 1,
+      "username": "sharada",
+      "email": "sharada@gmail.com",
+      "phone": 99018373,
+      "topic": "Angular",
+      "timePreference": "12.00"
+    },
+    {
+      "username": "shashi",
+      "email": "sharadakoli.p@muraai.com",
+      "phone": "9876543424",
+      "topic": "Angular",
+      "timePreference": "morning",
+      "subscribe1": true,
+      "id": 2
+    },
+    {
+      "username": "",
+      "email": "",
+      "phone": null,
+      "topic": "",
+      "timePreference": "",
+      "subscribe1": false,
+      "id": 3
+    },
+    {
+      "username": "shivam",
+      "email": "shivam@gmail.com",
+      "phone": "6768696065",
+      "topic": "Java",
+      "timePreference": "morning",
+      "subscribe1": true,
+      "id": 4
+    }
+  ]
+}

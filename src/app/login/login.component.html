@@ -1,0 +1,43 @@
+<!-- <div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold text-center">Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="mt-4">
+        <div class="mb-4">
+          <label for="username" class="block text-gray-700">Username</label>
+          <input
+            formControlName="username"
+            type="text"
+            id="username"
+            name="username"
+            class="form-input mt-1 block w-full rounded-md border-gray-300"
+            placeholder="Enter Name"
+          />
+          <div class="text-red-500 text-sm mt-1" *ngIf="loginForm?.get('username')?.hasError('required') && loginForm?.get('username')?.touched">
+            Username is required.
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-gray-700">Password</label>
+          <input
+            formControlName="password"
+            type="password"
+            id="password"
+            name="password"
+            class="form-input mt-1 block w-full rounded-md border-gray-300"
+            placeholder="Enter Password"
+          />
+          <div class="text-red-500 text-sm mt-1" *ngIf="loginForm?.get('password')?.hasError('required') && loginForm?.get('password')?.touched">
+            Password is required.
+          </div>
+          <div class="text-red-500 text-sm mt-1" *ngIf="loginForm?.get('password')?.hasError('minlength') && loginForm.get('password')?.touched">
+            Password must be at least 8 characters long.
+          </div>
+        </div>
+        <button class="bg-blue-500 text-white py-2 px-4 rounded-md w-full" type="button" (click)="onLogin()">Login</button>
+        <div class="text-red-500 text-sm mt-2" *ngIf="loginForm?.invalid && loginForm?.touched">
+          Please fix the errors before submitting.
+        </div>
+      </form>
+    </div>
+  </div>
+   -->

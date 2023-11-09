@@ -1,0 +1,33 @@
+.course-list-container {
+    text-align: center;
+  }
+  
+  .course-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .course-item {
+    border: 1px solid #e0e0e0;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .course-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .two-card-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .custom-card {
+    width: 45%; /* Set your desired width here */
+    /* You can adjust the width as needed to leave some space for margins, borders, etc. */
+  }
+  
+  
