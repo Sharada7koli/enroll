@@ -13,6 +13,7 @@ import { EnrollmentSuccessComponent } from './enrollment-success/enrollment-succ
 })
 export class AppComponent {
   title = 'Enrollment Application';
+  user: any;
   constructor(private authServe:AuthService,private _dialog:MatDialog, private keycloakserv:KeycloakService, private route: Router){
 
   }
@@ -43,7 +44,17 @@ export class AppComponent {
   ngOnInit() {
     this.keycloakserv.isLoggedIn().then((isLoggedIn) => {
       if (isLoggedIn) {
-        this.route.navigate(['/enrollment']);
+        this.route.navigate(['/home']);
+      }
+    });
+    this.keycloakserv.isLoggedIn().then((authenticated) => {
+      if (authenticated) {
+        this.keycloakserv.loadUserProfile().then((profile) => {
+          this.user = {
+            username: profile.username
+          };
+         console.log(this.user.username)
+        });
       }
     });
 
@@ -51,3 +62,6 @@ export class AppComponent {
 }
 
 }
+
+
+

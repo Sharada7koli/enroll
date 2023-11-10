@@ -1,26 +1,16 @@
-<mat-toolbar color="primary">
-  <span class="header-title">{{ title }}</span>
-  <span class="spacer"></span>
-  <div class="nav-links">
-    <a routerLink="/home" routerLinkActive="active">Home</a>
-    <span class="pipe">|</span>
-    <a routerLink="/courses" routerLinkActive="active">Courses</a>
-    <span class="pipe">|</span>
-    <!-- <ng-container *ngIf="isLoggedIn(); else disabledLink"> -->
-      <a routerLink="/enrollment" routerLinkActive="active" (click)="alrMsg()">Enroll</a>
-    <!-- </ng-container> -->
-  
-    <!-- <ng-template #disabledLink>
-      <span>
-        Enroll
-      </span>
-    </ng-template> -->
-    <span class="pipe">|</span>
-    <a routerLink="/mattable" routerLinkActive="active">Data</a>
+<mat-toolbar color="primary" class="flex items-center justify-between p-4">
+  <span class="text-2xl text-white">{{ title }}</span>
+  <div class="nav-links flex space-x-4">
+    <a routerLink="/home" routerLinkActive="active" class="text-white">Home</a>
+    <span class="text-white">|</span>
+    <a routerLink="/courses" routerLinkActive="active" class="text-white">Courses</a>
+    <span class="text-white">|</span>
+    <a routerLink="/enrollment" routerLinkActive="active" (click)="alrMsg()" class="text-white">Enroll</a>
+    <span class="text-white">|</span>
+    <a routerLink="/mattable" routerLinkActive="active" class="text-white">Data</a>
   </div>
-  <span class="spacer"></span>
-  <div class="action-buttons">
-    <a routerLink="/login" routerLinkActive="active">
+  <div class="action-buttons flex items-center">
+    <a routerLink="/login" routerLinkActive="active" class="mr-2">
       <button mat-raised-button color="primary" class="login-button" (click)="loginWithKeycloak()">
         Login
       </button>
@@ -31,6 +21,11 @@
   </div>
 </mat-toolbar>
 
-<div class="main-content">
+<div class="flex items-center justify-center mt-4" *ngIf="user && user.username">
+  <span class="font-bold text-lg mr-2">Logged in as:</span>
+  <span class="text-green-600 font-bold text-lg">{{ user.username }}</span>
+</div>
+
+<div class="main-content mt-6">
   <router-outlet></router-outlet>
 </div>

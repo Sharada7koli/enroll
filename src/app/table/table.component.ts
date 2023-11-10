@@ -21,10 +21,12 @@ interface Enroll {
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  constructor(private fb: FormBuilder, private router: Router, private _dialog: MatDialog, private enService: ServiceService, private http: HttpClient) {}
-
   enroll: any[] = [];
   username: any;
+  searchText = '';
+  sortKey: string = '';
+  reverse: boolean = false;
+  constructor(private fb: FormBuilder, private router: Router, private _dialog: MatDialog, private enService: ServiceService, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.enService.getUser().subscribe((data: any) => {
@@ -81,4 +83,39 @@ export class TableComponent implements OnInit {
       }
     });
   }
+
+  applyFilter() {
+    if (!this.searchText) {
+      return this.enroll; 
+    }
+
+    const lowerCaseSearch = this.searchText.toLowerCase();
+
+    return this.enroll.filter((enrollment) =>
+      Object.values(enrollment).some(
+        (value) => value && value.toString().toLowerCase().includes(lowerCaseSearch)
+      )
+    );
+  }
+
+  setSortKey(key: string) {
+    if (this.sortKey === key) {
+      this.reverse = !this.reverse;
+    } else {
+      this.sortKey = key;
+      this.reverse = false;
+    }
+  }
+
+  isSorted(key: string): boolean {
+    return this.sortKey === key;
+  }
+
+  sortIcon(key: string): string {
+    if (this.sortKey === key) {
+      return this.reverse ? '▼' : '▲';
+    }
+    return '';
+  }
+
 }

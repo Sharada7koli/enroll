@@ -30,9 +30,8 @@ import {MatInputModule} from '@angular/material/input';
 import { KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from 'src/demo';
 import { ConfirmationDialogComponentComponent } from './confirmation-dialog-component/confirmation-dialog-component.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { EnrollmentSuccessComponent } from './enrollment-success/enrollment-success.component';
-
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
@@ -66,6 +65,7 @@ import { EnrollmentSuccessComponent } from './enrollment-success/enrollment-succ
     MatCardModule,
     MatGridListModule,
     MatInputModule,
+    CommonModule
   ],
   
   providers: [ServiceService,AuthService, KeycloakService,
