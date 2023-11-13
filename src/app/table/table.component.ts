@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationDialogComponentComponent } from '../confirmation-dialog-component/confirmation-dialog-component.component';
 
+
 interface Enroll {
   username: string;
   email: string;
@@ -13,7 +14,10 @@ interface Enroll {
   topic: string;
   timepreference: string;
   actions: any;
+  editing?: boolean;
 }
+
+
 
 @Component({
   selector: 'app-table',
@@ -23,10 +27,17 @@ interface Enroll {
 export class TableComponent implements OnInit {
   enroll: any[] = [];
   username: any;
+
   searchText = '';
+
   sortKey: string = '';
   reverse: boolean = false;
+
+  itemsPerPage: number = 5;
+  currentPage: number = 1;
+
   constructor(private fb: FormBuilder, private router: Router, private _dialog: MatDialog, private enService: ServiceService, private http: HttpClient) {}
+
 
   ngOnInit(): void {
     this.enService.getUser().subscribe((data: any) => {
@@ -98,6 +109,7 @@ export class TableComponent implements OnInit {
     );
   }
 
+  
   setSortKey(key: string) {
     if (this.sortKey === key) {
       this.reverse = !this.reverse;
@@ -105,8 +117,7 @@ export class TableComponent implements OnInit {
       this.sortKey = key;
       this.reverse = false;
     }
-  }
-
+  } 
   isSorted(key: string): boolean {
     return this.sortKey === key;
   }
@@ -118,4 +129,17 @@ export class TableComponent implements OnInit {
     return '';
   }
 
+  getTotalPages(): number {
+    return Math.ceil(this.enroll.length / this.itemsPerPage);
+  }
+
+  getVisibleItems(): Enroll[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.enroll.slice(startIndex, endIndex);
+  }
+
+  onPageChanged(page: number): void {
+    this.currentPage = page;
+  }
 }

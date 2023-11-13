@@ -32,6 +32,7 @@ import { initializeKeycloak } from 'src/demo';
 import { ConfirmationDialogComponentComponent } from './confirmation-dialog-component/confirmation-dialog-component.component';
 import { EnrollmentSuccessComponent } from './enrollment-success/enrollment-success.component';
 import { CommonModule } from '@angular/common';
+import { PaginationComponent } from './pagination/pagination.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { CommonModule } from '@angular/common';
     MattableComponent,
     ConfirmationDialogComponentComponent,
     EnrollmentSuccessComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,
