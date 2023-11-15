@@ -29,6 +29,7 @@ export class TableComponent implements OnInit {
   username: any;
 
   searchText = '';
+  
 
   sortKey: string = '';
   reverse: boolean = false;
@@ -95,16 +96,13 @@ export class TableComponent implements OnInit {
     });
   }
 
-  applyFilter() {
-    if (!this.searchText) {
-      return this.enroll; 
-    }
-
-    const lowerCaseSearch = this.searchText.toLowerCase();
-
+  applyFilter(): Enroll[] {
+    const lowerCaseSearch = this.searchText.toLowerCase().trim();
+  
     return this.enroll.filter((enrollment) =>
       Object.values(enrollment).some(
-        (value) => value && value.toString().toLowerCase().includes(lowerCaseSearch)
+        (value) =>
+          value && value.toString().toLowerCase().includes(lowerCaseSearch)
       )
     );
   }
@@ -117,7 +115,27 @@ export class TableComponent implements OnInit {
       this.sortKey = key;
       this.reverse = false;
     }
-  } 
+
+    // After setting the sort key and direction, reapply the filter
+    this.enroll = this.applyFilter();
+
+    // Now, apply the sorting logic
+    this.enroll.sort((a, b) => {
+      const valueA = a[key];
+      const valueB = b[key];
+
+      if (typeof valueA === 'string' && typeof valueB === 'string') {
+        // Case-insensitive string comparison
+        return this.reverse
+          ? valueB.localeCompare(valueA)
+          : valueA.localeCompare(valueB);
+      } else {
+        // Numeric or other types, use direct comparison
+        return this.reverse ? valueB - valueA : valueA - valueB;
+      }
+    });
+  }
+  
   isSorted(key: string): boolean {
     return this.sortKey === key;
   }
@@ -128,18 +146,20 @@ export class TableComponent implements OnInit {
     }
     return '';
   }
-
-  getTotalPages(): number {
-    return Math.ceil(this.enroll.length / this.itemsPerPage);
-  }
-
-  getVisibleItems(): Enroll[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.enroll.slice(startIndex, endIndex);
-  }
-
+  
   onPageChanged(page: number): void {
     this.currentPage = page;
   }
+
+  getVisibleItems(): Enroll[] {
+  const filteredAndSorted = this.applyFilter();
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  return filteredAndSorted.slice(startIndex, endIndex);
+}
+
+getTotalPages(): number {
+  return Math.ceil(this.applyFilter().length / this.itemsPerPage);
+}
+
 }

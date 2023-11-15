@@ -4,23 +4,23 @@
     <tr>
       <th scope="col" class="px-4 py-3 text-center cursor-pointer" (click)="setSortKey('username')">
         Name 
-        <span class="ml-1" *ngIf="isSorted('username')">{{ sortIcon('username') }}</span>
+        <span class="ml-1" *ngIf="isSorted('username')" class="sort-icon">{{ sortIcon('username') }}</span>
       </th>
       <th scope="col" class="px-4 py-3 text-center cursor-pointer" (click)="setSortKey('email')">
         Email 
-        <span class="ml-1" *ngIf="isSorted('email')">{{ sortIcon('email') }}</span>
+        <span class="ml-1" *ngIf="isSorted('email')" class="sort-icon">{{ sortIcon('email') }}</span>
       </th>
       <th scope="col" class="px-4 py-3 text-center cursor-pointer" (click)="setSortKey('phone')">
         Phone 
-        <span class="ml-1" *ngIf="isSorted('phone')">{{ sortIcon('phone') }}</span>
+        <span class="ml-1" *ngIf="isSorted('phone')" class="sort-icon">{{ sortIcon('phone') }}</span>
       </th>
       <th scope="col" class="px-4 py-3 text-center cursor-pointer" (click)="setSortKey('topic')">
         Topic 
-        <span class="ml-1" *ngIf="isSorted('topic')">{{ sortIcon('topic') }}</span>
+        <span class="ml-1" *ngIf="isSorted('topic')" class="sort-icon">{{ sortIcon('topic') }}</span>
       </th>
       <th scope="col" class="px-4 py-3 text-center cursor-pointer" (click)="setSortKey('timepreference')">
         Time Preference 
-        <span class="ml-1" *ngIf="isSorted('timepreference')">{{ sortIcon('timepreference') }}</span>
+        <span class="ml-1" *ngIf="isSorted('timepreference')" class="sort-icon">{{ sortIcon('timepreference') }}</span>
       </th>
       <th scope="col" class="px-4 py-3 text-center">Actions</th>
     </tr>
@@ -28,11 +28,11 @@
   <tbody>
     <ng-container *ngFor="let enrollment of getVisibleItems(); let i = index">
       <tr class="border-b dark:border-gray-700">
-        <td class="px-4 py-3 text-center">{{enrollment.username}}</td>
-        <td class="px-4 py-3 text-center">{{enrollment.email}}</td>
-        <td class="px-4 py-3 text-center">{{enrollment.phone}}</td>
-        <td class="px-4 py-3 text-center">{{enrollment.topic}}</td>
-        <td class="px-4 py-3 text-center">{{enrollment.timepreference}}</td>
+        <td class="px-4 py-3 text-center">{{ enrollment?.username }}</td>
+        <td class="px-4 py-3 text-center">{{ enrollment?.email }}</td>
+        <td class="px-4 py-3 text-center">{{enrollment?.phone}}</td>
+        <td class="px-4 py-3 text-center">{{enrollment?.topic}}</td>
+        <td class="px-4 py-3 text-center">{{enrollment?.timepreference}}</td>
         <td class="px-4 py-3 text-center">
           <div class="flex justify-center space-x-2">
             <!-- Button to toggle the edit form -->
