@@ -33,7 +33,12 @@ import { ConfirmationDialogComponentComponent } from './confirmation-dialog-comp
 import { EnrollmentSuccessComponent } from './enrollment-success/enrollment-success.component';
 import { CommonModule } from '@angular/common';
 import { PaginationComponent } from './pagination/pagination.component';
-
+import { UserService } from './user.service';
+import { SequelizedemoformComponent } from './sequelizedemoform/sequelizedemoform.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { QrcodeComponent } from './qrcode/qrcode.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -48,6 +53,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     ConfirmationDialogComponentComponent,
     EnrollmentSuccessComponent,
     PaginationComponent,
+    SequelizedemoformComponent,
+    QrcodeComponent
   ],
   imports: [
     BrowserModule,
@@ -67,10 +74,14 @@ import { PaginationComponent } from './pagination/pagination.component';
     MatCardModule,
     MatGridListModule,
     MatInputModule,
-    CommonModule
+    CommonModule,
+    MatSnackBarModule,
+    MatStepperModule,
+    MatInputModule,
+    MatExpansionModule
   ],
   
-  providers: [ServiceService,AuthService, KeycloakService,
+  providers: [ServiceService,AuthService, KeycloakService,UserService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,

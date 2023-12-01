@@ -5,7 +5,7 @@ import { ServiceService } from '../shared/service.service';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationDialogComponentComponent } from '../confirmation-dialog-component/confirmation-dialog-component.component';
-
+import { saveAs } from 'file-saver';
 
 interface Enroll {
   username: string;
@@ -16,8 +16,6 @@ interface Enroll {
   actions: any;
   editing?: boolean;
 }
-
-
 
 @Component({
   selector: 'app-table',
@@ -44,6 +42,26 @@ export class TableComponent implements OnInit {
     this.enService.getUser().subscribe((data: any) => {
       this.enroll = data;
     });
+  }
+
+  downloadData(): void {
+    const csvData = this.convertToCSV(this.enroll);
+
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
+
+    saveAs(blob, 'enrollment_data.csv');
+  }
+
+  private convertToCSV(data: Enroll[]): string {
+    const headers = Object.keys(data[0]);
+  
+    let csv = headers.join(',') + '\n';
+  
+    data.forEach((row: { [key: string]: any }) => {
+      csv += headers.map((header) => row[header]).join(',') + '\n';
+    });
+  
+    return csv;
   }
 
   editEnrollment(enrollment: any) {

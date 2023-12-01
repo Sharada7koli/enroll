@@ -6,22 +6,28 @@
     <a routerLink="/courses" routerLinkActive="active" class="text-white">Courses</a>
     <span class="text-white">|</span>
     <a routerLink="/enrollment" routerLinkActive="active" (click)="alrMsg()" class="text-white">Enroll</a>
+    <!-- <span class="text-white">|</span>
+    <a routerLink="/mattable" routerLinkActive="active" class="text-white">Data</a> -->
     <span class="text-white">|</span>
-    <a routerLink="/mattable" routerLinkActive="active" class="text-white">Data</a>
+    <a routerLink="/sequelizedemoform" routerLinkActive="active" class="text-white">Users</a>
+    
   </div>
   <div class="action-buttons flex items-center">
     <a routerLink="/login" routerLinkActive="active" class="mr-2">
-      <button mat-raised-button color="primary" class="login-button" (click)="loginWithKeycloak()">
+      <button *ngIf="!isUserLoggedIn" mat-raised-button color="primary" class="login-button" (click)="loginWithKeycloak()">
         Login
       </button>
     </a>
-    <button mat-raised-button color="primary" class="login-button" (click)="logoutWithKeycloak()">
+    <button *ngIf="isUserLoggedIn" mat-raised-button color="primary" class="login-button" (click)="logoutWithKeycloak()">
       Logout
     </button>
   </div>
 </mat-toolbar>
 
-<div class="flex items-center justify-center mt-4" *ngIf="user && user.username">
+<div class="mt-2 text-right">
+  <p class="text-gray-600 px-6 text-sm">{{ getCurrentDateTime() }}</p>
+</div>
+<div class="flex items-center justify-center" *ngIf="user && user.username">
   <span class="font-bold text-lg mr-2">Logged in as:</span>
   <span class="text-green-600 font-bold text-lg">{{ user.username }}</span>
 </div>
@@ -29,3 +35,5 @@
 <div class="main-content mt-6">
   <router-outlet></router-outlet>
 </div>
+
+

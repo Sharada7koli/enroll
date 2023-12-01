@@ -25,4 +25,8 @@ export class HomeComponent {
     this.router.navigate(['courses']);
   }
 
+  // onVisit(){
+  //   alert("Provide a link the generate QR Code");
+  // }
+
 }

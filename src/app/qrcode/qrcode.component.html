@@ -1,0 +1,20 @@
+<!-- qrcode.component.html -->
+<div class="text-center p-4">
+    <h2 class="text-lg font-bold mb-4">QR Code Generator</h2>
+    
+    <div class="mb-4">
+      <p>Scan the QR code to go to the website:</p>
+      <canvas #qrcodeCanvas class="mx-auto mt-2"></canvas>
+    </div>
+  
+    <div class="flex items-center justify-center mt-4">
+      <label for="linkInput" class="mr-2">Enter Link:</label>
+      <input type="text" id="linkInput" [(ngModel)]="linkInput" class="border rounded py-2 px-4 mr-2" />
+      <button (click)="generateQRCode()" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Generate QR Code</button>
+    </div>
+    <div *ngIf="errorMessage" class="text-red-500 mt-4 text-center blink font-bold">
+      {{ errorMessage }}
+    </div>
+    
+  </div>
+  
