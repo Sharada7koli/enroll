@@ -5,6 +5,7 @@ import { ServiceService } from '../shared/service.service';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationDialogComponentComponent } from '../confirmation-dialog-component/confirmation-dialog-component.component';
+import { saveAs } from 'file-saver';
 
 interface Enroll {
   username: string;
@@ -13,6 +14,7 @@ interface Enroll {
   topic: string;
   timepreference: string;
   actions: any;
+  editing?: boolean;
 }
 
 @Component({
@@ -21,15 +23,45 @@ interface Enroll {
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  constructor(private fb: FormBuilder, private router: Router, private _dialog: MatDialog, private enService: ServiceService, private http: HttpClient) {}
-
   enroll: any[] = [];
   username: any;
+
+  searchText = '';
+  
+
+  sortKey: string = '';
+  reverse: boolean = false;
+
+  itemsPerPage: number = 5;
+  currentPage: number = 1;
+
+  constructor(private fb: FormBuilder, private router: Router, private _dialog: MatDialog, private enService: ServiceService, private http: HttpClient) {}
+
 
   ngOnInit(): void {
     this.enService.getUser().subscribe((data: any) => {
       this.enroll = data;
     });
+  }
+
+  downloadData(): void {
+    const csvData = this.convertToCSV(this.enroll);
+
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
+
+    saveAs(blob, 'enrollment_data.csv');
+  }
+
+  private convertToCSV(data: Enroll[]): string {
+    const headers = Object.keys(data[0]);
+  
+    let csv = headers.join(',') + '\n';
+  
+    data.forEach((row: { [key: string]: any }) => {
+      csv += headers.map((header) => row[header]).join(',') + '\n';
+    });
+  
+    return csv;
   }
 
   editEnrollment(enrollment: any) {
@@ -81,4 +113,71 @@ export class TableComponent implements OnInit {
       }
     });
   }
+
+  applyFilter(): Enroll[] {
+    const lowerCaseSearch = this.searchText.toLowerCase().trim();
+  
+    return this.enroll.filter((enrollment) =>
+      Object.values(enrollment).some(
+        (value) =>
+          value && value.toString().toLowerCase().includes(lowerCaseSearch)
+      )
+    );
+  }
+
+  
+  setSortKey(key: string) {
+    if (this.sortKey === key) {
+      this.reverse = !this.reverse;
+    } else {
+      this.sortKey = key;
+      this.reverse = false;
+    }
+
+    // After setting the sort key and direction, reapply the filter
+    this.enroll = this.applyFilter();
+
+    // Now, apply the sorting logic
+    this.enroll.sort((a, b) => {
+      const valueA = a[key];
+      const valueB = b[key];
+
+      if (typeof valueA === 'string' && typeof valueB === 'string') {
+        // Case-insensitive string comparison
+        return this.reverse
+          ? valueB.localeCompare(valueA)
+          : valueA.localeCompare(valueB);
+      } else {
+        // Numeric or other types, use direct comparison
+        return this.reverse ? valueB - valueA : valueA - valueB;
+      }
+    });
+  }
+  
+  isSorted(key: string): boolean {
+    return this.sortKey === key;
+  }
+
+  sortIcon(key: string): string {
+    if (this.sortKey === key) {
+      return this.reverse ? '▼' : '▲';
+    }
+    return '';
+  }
+  
+  onPageChanged(page: number): void {
+    this.currentPage = page;
+  }
+
+  getVisibleItems(): Enroll[] {
+  const filteredAndSorted = this.applyFilter();
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+  const endIndex = startIndex + this.itemsPerPage;
+  return filteredAndSorted.slice(startIndex, endIndex);
+}
+
+getTotalPages(): number {
+  return Math.ceil(this.applyFilter().length / this.itemsPerPage);
+}
+
 }

@@ -1,0 +1,80 @@
+<div class="flex justify-center items-center h-screen">
+  <div class="max-w-md w-full p-6 bg-gray-100 rounded-lg shadow-md -mt-28">
+    <h2 class="text-3xl font-semibold text-center mb-6">User Information Form</h2>
+    <div class="mb-4">
+      <label for="search" class="block text-sm font-medium text-gray-600 mb-1">Search:</label>
+      <div class="flex">
+        <input
+          type="text"
+          id="search"
+          class="form-input p-3 rounded-md border-2 w-full focus:outline-none focus:border-blue-500"
+        />
+        <button class="bg-green-500 text-white py-3 px-6 ml-2 rounded-md hover:bg-green-600" type="button" (click)="onSearch()">Search</button>
+      </div>
+    </div>
+    <form [formGroup]="userForm" class="mt-6">
+      <div class="mb-4">
+        <div>
+          <label for="user" class="block text-sm font-medium text-gray-600 mb-1">Name:</label>
+          <input
+            formControlName="user"
+            type="text"
+            id="user"
+            class="form-input p-3 rounded-md border-2 w-full focus:outline-none focus:border-blue-500"
+          />
+          <div *ngIf="userForm.get('user')?.hasError('required') && userForm.get('user')?.touched" class="text-red-500 text-sm mt-1">
+            Please Fill the Empty Field.
+          </div>
+          <div *ngIf="userForm.get('user')?.hasError('pattern') && userForm.get('user')?.touched" class="text-red-500 text-sm mt-1">
+            Only letters and spaces are allowed.
+          </div>
+        </div>
+    
+        <div class="mt-4">
+          <label for="name" class="block text-sm font-medium text-gray-600 mb-1">Email:</label>
+          <input
+            formControlName="name"
+            type="text"
+            id="name"
+            class="form-input p-3 rounded-md border-2 w-full focus:outline-none focus:border-blue-500"
+          />
+          <div *ngIf="userForm.get('name')?.hasError('required') && userForm.get('name')?.touched" class="text-red-500 text-sm mt-1">
+            Please Fill the Empty Field.
+          </div>
+          <div *ngIf="userForm.get('name')?.hasError('email') && userForm.get('name')?.touched" class="text-red-500 text-sm mt-1">
+            Please enter a valid email address.
+          </div>
+        </div>
+      </div>
+      <div class="mb-4 flex">
+        <div class="w-1/2 pr-2">
+          <button class="bg-blue-500 text-white py-3 px-6 rounded-md w-full hover:bg-blue-600" type="submit" (click)="onSubmit()">
+            Submit
+          </button>
+        </div>
+        <div class="w-1/2 pr-2">
+          <button class="bg-gray-500 text-white py-3 px-6 rounded-md w-full hover:bg-gray-600" type="button" (click)="clearForm()">
+            Clear
+          </button>
+        </div>
+      </div>
+      <div *ngIf="successMessage" class="success-message text-green-600">
+        {{ successMessage }}
+      </div>
+    </form>
+    <hr style="border-color: black;">
+    <div *ngIf="submittedData" class="mt-6">
+      <h3 class="text-xl font-semibold text-center mb-4">Submitted Data:</h3>
+      <p class="mb-2"><strong>Name:</strong> {{ submittedData.user }}</p>
+      <p><strong>Email:</strong> {{ submittedData.name }}</p>
+      <div class="mb-4 mt-4 flex">
+        <div class="w-1/2 pr-2">
+          <button class="bg-yellow-500 text-white py-3 px-6 rounded-md w-full hover:bg-yellow-600" type="button" (click)="onEdit()">Edit</button>
+        </div>
+        <div class="w-1/2 pr-2">
+          <button class="bg-red-500 text-white py-3 px-6 rounded-md w-full hover:bg-red-600" type="button" (click)="onDelete()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

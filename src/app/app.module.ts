@@ -30,9 +30,19 @@ import {MatInputModule} from '@angular/material/input';
 import { KeycloakService } from 'keycloak-angular';
 import { initializeKeycloak } from 'src/demo';
 import { ConfirmationDialogComponentComponent } from './confirmation-dialog-component/confirmation-dialog-component.component';
-
-
-
+import { EnrollmentSuccessComponent } from './enrollment-success/enrollment-success.component';
+import { CommonModule } from '@angular/common';
+import { PaginationComponent } from './pagination/pagination.component';
+import { UserService } from './user.service';
+import { SequelizedemoformComponent } from './sequelizedemoform/sequelizedemoform.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { QrcodeComponent } from './qrcode/qrcode.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { OnlineEventsComponent } from './online-events/online-events.component';
+import { MatSelectModule } from '@angular/material/select';
+import { BlogComponent } from './blog/blog.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +55,13 @@ import { ConfirmationDialogComponentComponent } from './confirmation-dialog-comp
     EnrollmentComponent,
     MattableComponent,
     ConfirmationDialogComponentComponent,
+    EnrollmentSuccessComponent,
+    PaginationComponent,
+    SequelizedemoformComponent,
+    QrcodeComponent,
+    OnlineEventsComponent,
+    BlogComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -64,9 +81,15 @@ import { ConfirmationDialogComponentComponent } from './confirmation-dialog-comp
     MatCardModule,
     MatGridListModule,
     MatInputModule,
+    CommonModule,
+    MatSnackBarModule,
+    MatStepperModule,
+    MatInputModule,
+    MatExpansionModule,
+    MatSelectModule
   ],
   
-  providers: [ServiceService,AuthService, KeycloakService,
+  providers: [ServiceService,AuthService, KeycloakService,UserService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeKeycloak,

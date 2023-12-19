@@ -1,0 +1,30 @@
+
+
+mat-card {
+    width: 500px;
+    margin: 10px; 
+    height: 300px;
+  }
+  
+  /* .example-header-image {
+    background-size: cover;
+    height: 60px;
+    width: 60px; 
+    border-radius: 50%;
+    margin-right: 10px; 
+  } */
+  
+  mat-card-content {
+    text-align: left; 
+  }
+  
+  mat-card-title,
+  mat-card-subtitle,
+  p {
+    margin: 0; 
+  }
+
+  mat-card-title{
+    text-align: left;
+  }
+  

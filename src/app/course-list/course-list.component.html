@@ -1,7 +1,30 @@
 <div class="course-list-container">
-  <h1 class="text-xl font-semibold">Available Courses</h1>
-  <div class="flex flex-wrap -m-2">
-    <div *ngFor="let course of courses" class="w-full md:w-1/2 lg:w-1/2 p-4">
+  <h1 class="text-4xl font-bold text-center mb-8 text-indigo-700">
+    Discover Our Exciting Courses
+  </h1>
+  
+  <!-- Search Input -->
+  <div class="mb-4 mx-auto w-1/2 relative">
+    <input
+      [(ngModel)]="searchQuery"
+      class="p-2 pr-10 w-3/5 border border-gray-300 rounded-full"
+      placeholder="Search for courses..."
+      (input)="filterCourses()"
+    />
+    <span class="absolute mr-32 inset-y-0 right-0 flex items-center pr-2">
+      <svg class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-5-5m2-5a8 8 0 10-16 0 8 8 0 0016 0z"></path>
+      </svg>
+    </span>
+  </div>
+
+  <div *ngIf="courseNotFound" class="text-red-500 mb-4 text-center">
+    <p class="text-lg font-bold">Oops! Course not found...</p>
+    <p class="text-sm">It seems the course you are looking for doesn't exist.....!!!</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+    <div *ngFor="let course of filteredCourses" class="p-4">
       <div class="bg-white border rounded-lg overflow-hidden">
         <div class="px-6 py-4 cursor-pointer" (click)="showCourseDetails(course)">
           <div class="font-bold text-lg mb-2">{{ selectedCourse === course ? course.name : course.name }}</div>
@@ -9,7 +32,7 @@
         <div *ngIf="selectedCourse === course" class="px-6 py-4">
           <h2 class="font-bold text-lg mb-2">Course Details</h2>
           <p class="text-gray-700">{{ selectedCourse.description }}</p>
-          <button (click)="addEnroll()" class="bg-blue-500 text-white px-4 py-2 rounded-md">Enroll Here!</button>
+          <button (click)="addEnroll()" class="bg-blue-500 text-white px-4 py-2 rounded-md mt-2">Enroll Here!</button>
         </div>
       </div>
     </div>

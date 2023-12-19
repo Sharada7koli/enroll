@@ -1,0 +1,24 @@
+
+.footer {
+  background-color: aliceblue; 
+  color: #1b0202; 
+  padding: 10px; 
+  text-align: center;
+}
+
+.social-icons {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.social-icon {
+  color: rgb(32, 29, 29);
+  margin-left: 10px; 
+  font-size: 24px; 
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  color: #007bff; 
+}

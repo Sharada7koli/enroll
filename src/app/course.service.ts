@@ -7,7 +7,7 @@ import { Observable, of } from 'rxjs';
 export interface Course {
   id: number;
   name: string;
-  description: string;
+  description?: string; // Make description optional
 }
 
 @Injectable({
@@ -26,7 +26,8 @@ export class CourseService {
   constructor() {}
 
   getCourses(): Observable<Course[]> {
-
     return of(this.courses);
   }
+
+  
 }

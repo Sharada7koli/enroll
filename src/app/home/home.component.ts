@@ -25,4 +25,8 @@ export class HomeComponent {
     this.router.navigate(['courses']);
   }
 
+  getImagePath() {
+    return 'assets/images/your-image.png';
+  }
+
 }

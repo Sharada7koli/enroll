@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ServiceService } from '../shared/service.service';
 import { User } from '../user';
 import { MatDialog } from '@angular/material/dialog';
+import { EnrollmentSuccessComponent } from '../enrollment-success/enrollment-success.component';
 
 @Component({
   selector: 'app-enrollment',
@@ -39,14 +40,20 @@ userarray:User[]=[];
 this.enrService.addEnrolls(this.userForm.value).subscribe(
   (result:any)=>{
   console.log(result);
-  alert("Enrolled Successfully!!");
   this.dialog.closeAll(); 
-  this.router.navigate(['/table']);
+  this.openEnrollmentSuccessDialog();
+  // this.router.navigate(['/table']);
 },
 (error) => {
   console.error('Error:', error);
 }
 );
+}
+openEnrollmentSuccessDialog() {
+  this.dialog.open(EnrollmentSuccessComponent, {
+    width: '300px',
+    data: 'Enrolled Successfully!!',
+  });
 }
 
 clearForm(){
