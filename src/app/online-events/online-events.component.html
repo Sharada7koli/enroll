@@ -1,0 +1,71 @@
+<style>
+    .inline-fields {
+      display: flex;
+      justify-content: space-between; /* Adjust as needed */
+      align-items: center;
+    }
+  
+    .inline-fields mat-form-field {
+      flex: 1;
+      margin-right: 10px; /* Adjust the value as needed for spacing between dropdowns */
+    }
+  
+    .inline-fields mat-form-field:last-child {
+      margin-right: 0; /* Remove margin from the last dropdown to prevent extra space */
+    }
+  
+    .inline-fields button {
+      width: 150px; /* Set a fixed width for the button, adjust as needed */
+      height: 40px; /* Set a fixed height for the button, adjust as needed */
+    }
+  </style>
+  
+  <div>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Online Events</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          Grow your knowledge, tap into a new skill, 
+          or learn how to forge a tech career from scratch. 
+          Our events are designed to get you on your way, no matter where you are in your career—or in the world! Browse our upcoming and on-demand events to get started.
+        </p>
+      </mat-card-content>
+    </mat-card>
+  
+    <div class="inline-fields">
+      <mat-form-field appearance="fill">
+        <mat-label>Any Topic</mat-label>
+        <mat-select>
+          <!-- Add your topic options here -->
+          <mat-option value="topic1">Topic 1</mat-option>
+          <mat-option value="topic2">Topic 2</mat-option>
+          <!-- Add more options as needed -->
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Any Location</mat-label>
+        <mat-select>
+          <!-- Add your location options here -->
+          <mat-option value="location1">Location 1</mat-option>
+          <mat-option value="location2">Location 2</mat-option>
+          <!-- Add more options as needed -->
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Any Date</mat-label>
+        <mat-select>
+          <!-- Add your date options here -->
+          <mat-option value="date1">Date 1</mat-option>
+          <mat-option value="date2">Date 2</mat-option>
+          <!-- Add more options as needed -->
+        </mat-select>
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary">Find Events</button>
+    </div>
+  </div>
+  

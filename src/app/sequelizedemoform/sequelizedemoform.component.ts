@@ -1,41 +1,67 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../user.service';
-UserService
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-sequelizedemoform',
   templateUrl: './sequelizedemoform.component.html',
   styleUrls: ['./sequelizedemoform.component.css']
 })
-export class SequelizedemoformComponent {
+export class SequelizedemoformComponent implements OnInit {
 
   userForm: FormGroup;
   title = 'User Form';
-  user: string = '';
-  name: string = '';
-  userId: string = '';
   successMessage: string | null = null;
   submittedData: any;
-  editMode: any;
+  editMode: boolean = false;
+  userData: any;
 
   constructor(private userService: UserService, private fb: FormBuilder, private http: HttpClient) {
     this.userForm = this.fb.group({
-      user: ['', [Validators.required]],
-      name: ['', [Validators.required]],
+      user: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+      name: ['', [Validators.required, Validators.email]],
     });
   }
+
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
+    this.userForm = this.fb.group({
+      user: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+      name: ['', [Validators.required, Validators.email]],
+    });
+    // this.userForm.get('name')?.valueChanges.subscribe((name) => {
+    //   if (name) {
+    //     this.userService.getUserByName(name).subscribe(
+    //       (userData) => {
+    //         if (userData) {
+    //           this.editMode = true;
+    //           this.userForm.patchValue({
+    //             user: userData.user,
+    //             name: userData.name,
+    //           });
+    //           this.submittedData = userData;
+    //         } else {
+    //           console.error('User not found with name:', name);
+    //           this.successMessage = 'Error: User not found with the entered name.';
+    //         }
+    //       },
+    //       (error) => {
+    //         console.error('Error fetching user data:', error);
+    //         this.successMessage = 'Error fetching user data. Please try again.';
+    //       }
+    //     );
+    //   }
+    // });
+  }
+
 
   onSubmit() {
     if (this.userForm.valid) {
       const userValues = this.userForm.value;
-  
-      // Check for duplicates before making the API call
       this.userService.checkForDuplicate(userValues.user).subscribe(
         response => {
           if (response.isDuplicate) {
@@ -43,18 +69,21 @@ export class SequelizedemoformComponent {
             this.successMessage = 'Error: Duplicate user. Please choose a different username.';
           } else {
             if (this.editMode) {
-              this.userService.updateUser(this.submittedData.user, userValues).subscribe(
-                (response) => {
-                  console.log('User updated successfully:', response.message);
-                  alert("Are you sure to save edited data");
-                  this.successMessage = 'User updated successfully';
-                  this.submittedData = userValues;
-                  this.editMode = false;
-                },
-                (error) => {
-                  console.error('Error updating user:', error);
-                }
-              );
+              // Confirm before saving edited data
+              const confirmEdit = confirm("Are you sure to save edited data?");
+              if (confirmEdit) {
+                this.userService.updateUser(this.submittedData.user, userValues).subscribe(
+                  (response) => {
+                    console.log('User updated successfully:', response.message);
+                    this.successMessage = 'User updated successfully';
+                    this.submittedData = userValues;
+                    this.editMode = false;
+                  },
+                  (error) => {
+                    console.error('Error updating user:', error);
+                  }
+                );
+              }
             } else {
               this.userService.addUser(userValues).subscribe(
                 (response) => {
@@ -78,15 +107,15 @@ export class SequelizedemoformComponent {
       );
     }
   }
-  
 
-  clearForm(){
+  clearForm() {
     this.userForm.reset();
   }
 
   onDelete() {
-    alert("Are yor sure to delete the data");
-    if (this.submittedData && this.submittedData.user) {
+    // Confirm before deleting data
+    const confirmDelete = confirm("Are you sure to delete the data?");
+    if (confirmDelete && this.submittedData && this.submittedData.user) {
       const username = this.submittedData.user;
   
       this.userService.deleteUser(username).subscribe(
@@ -102,6 +131,7 @@ export class SequelizedemoformComponent {
       );
     }
   }
+
   onEdit() {
     this.editMode = true;
     this.userForm.setValue({
@@ -109,4 +139,49 @@ export class SequelizedemoformComponent {
       name: this.submittedData.name,
     });
   }
+
+  onSearch() {
+    const nameControl = this.userForm.get('name');
+    if (nameControl) {
+      const searchTerm = nameControl.value;
+      if (searchTerm !== null && searchTerm !== undefined && searchTerm !== '') {
+        this.userService.getUserByName(searchTerm).subscribe(
+          (userData: any) => {
+            if (userData) {
+              this.editMode = true;
+              this.userForm.patchValue({
+                user: userData.user, 
+                name: searchTerm, 
+              });
+              this.submittedData = userData;
+              this.successMessage = 'User data found!';
+            } else {
+              this.editMode = false;
+              this.successMessage = 'User data not found.';
+            }
+          },
+          (error) => {
+            console.error('Error fetching user data:', error);
+            this.successMessage = 'Error fetching user data. Please try again.';
+          }
+        );
+      } else {
+        console.error('Search term is an empty string');
+      }
+    } else {
+      console.error('Name control is null');
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+
 }

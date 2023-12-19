@@ -96,6 +96,26 @@ app.get('/checkDuplicate/:user', async (req, res) => {
   }
 });
 
+app.get('/get-user-by-name/:name', async (req, res) => {
+  const userName = req.params.name;
+
+  try {
+    const user = await User.findOne({
+      where: { name: userName },
+    });
+
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    
+    console.error('Error getting user by name:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server Running at ${PORT}`);

@@ -39,6 +39,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { QrcodeComponent } from './qrcode/qrcode.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { OnlineEventsComponent } from './online-events/online-events.component';
+import { MatSelectModule } from '@angular/material/select';
+import { BlogComponent } from './blog/blog.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +58,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
     EnrollmentSuccessComponent,
     PaginationComponent,
     SequelizedemoformComponent,
-    QrcodeComponent
+    QrcodeComponent,
+    OnlineEventsComponent,
+    BlogComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +85,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatSnackBarModule,
     MatStepperModule,
     MatInputModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSelectModule
   ],
   
   providers: [ServiceService,AuthService, KeycloakService,UserService,

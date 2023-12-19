@@ -9,16 +9,23 @@ interface DuplicateCheckResponse {
   user: string;
 }
 
+interface UserData {
+  user: string;
+  name: string;
+  // Add other properties as needed
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  
   private baseUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.baseUrl);
+    return this.http.get<any[]>(`${this.baseUrl}/users`);
   }
 
   addUser(data: any): Observable<any> {
@@ -39,4 +46,10 @@ export class UserService {
     const url = `${this.baseUrl}/update-user/${user}`;
     return this.http.put<any>(url, data);
   }
+  
+  getUserByName(name: string): Observable<any> {
+    const url = `${this.baseUrl}/get-user-by-name/${name}`;
+    return this.http.get<any>(url);
+  }
+  
 }

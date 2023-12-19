@@ -10,7 +10,10 @@
     <a routerLink="/mattable" routerLinkActive="active" class="text-white">Data</a> -->
     <span class="text-white">|</span>
     <a routerLink="/sequelizedemoform" routerLinkActive="active" class="text-white">Users</a>
-    
+    <span class="text-white">|</span>
+    <!-- <a routerLink="online-events" routerLinkActive="active" class="text-white">Online Events</a>
+    <span class="text-white">|</span> -->
+    <a routerLink="blog" routerLinkActive="active" class="text-white">Blog</a>
   </div>
   <div class="action-buttons flex items-center">
     <a routerLink="/login" routerLinkActive="active" class="mr-2">
@@ -24,9 +27,6 @@
   </div>
 </mat-toolbar>
 
-<div class="mt-2 text-right">
-  <p class="text-gray-600 px-6 text-sm">{{ getCurrentDateTime() }}</p>
-</div>
 <div class="flex items-center justify-center" *ngIf="user && user.username">
   <span class="font-bold text-lg mr-2">Logged in as:</span>
   <span class="text-green-600 font-bold text-lg">{{ user.username }}</span>
@@ -36,4 +36,6 @@
   <router-outlet></router-outlet>
 </div>
 
+
+<app-footer></app-footer>
 

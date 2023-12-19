@@ -61,10 +61,7 @@ export class AppComponent {
     });
   }
   
-  getCurrentDateTime(): string {
-    const datePipe = new DatePipe('en-US');
-    return datePipe.transform(new Date(), 'short')!;
-  }
+  
 
 }
 

@@ -30,7 +30,7 @@ export class CourseListComponent implements OnInit {
   }
 
   addEnroll(): void {
-    const dialogRef = this.dialog.open(EnrollmentComponent);
+    this.router.navigate(['/enrollment']);
   }
 
   onEnroll(): void {

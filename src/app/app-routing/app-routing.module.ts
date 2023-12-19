@@ -11,6 +11,8 @@ import { EnrollmentComponent } from '../enrollment/enrollment.component';
 import { MattableComponent } from '../mattable/mattable.component';
 import { SequelizedemoformComponent } from '../sequelizedemoform/sequelizedemoform.component';
 import { QrcodeComponent } from '../qrcode/qrcode.component';
+import { OnlineEventsComponent } from '../online-events/online-events.component';
+import { BlogComponent } from '../blog/blog.component';
 
 const routes: Routes = [
   { path:'',pathMatch:'full',redirectTo:'home'},
@@ -25,7 +27,9 @@ const routes: Routes = [
     canActivate: [AuthGuard]},
   {path:'mattable', component:MattableComponent},
   {path: 'sequelizedemoform', component:SequelizedemoformComponent},
-  { path: 'qrcode', component: QrcodeComponent }
+  { path: 'qrcode', component: QrcodeComponent },
+  { path: 'online-events', component: OnlineEventsComponent },
+  { path: 'blog', component: BlogComponent}
 
 ];
 
@@ -34,4 +38,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
-export const routingComponents = [ TableComponent, HomeComponent, CourseListComponent,EnrollmentComponent,SequelizedemoformComponent]
+export const routingComponents = [ TableComponent, HomeComponent, CourseListComponent,EnrollmentComponent,SequelizedemoformComponent, OnlineEventsComponent, BlogComponent]

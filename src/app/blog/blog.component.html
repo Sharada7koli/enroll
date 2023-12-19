@@ -1,0 +1,32 @@
+<!-- src/app/blog/blog.component.html -->
+
+<div class="blog-title">
+    <h1>The Enrollment Blog</h1>
+    <h2>Discover your corner of the tech world.</h2>
+  </div>
+  
+  <div class="blog-container">
+    <div *ngFor="let post of blogPosts" class="blog-post" (click)="showCourseDetails(post.courseId)">
+      <div class="blog-header">
+        <h2>{{ post.title }}</h2>
+      </div>
+      <div class="blog-content">
+        <div class="content-center">
+          <img src="{{ post.image }}" alt="{{ post.title }} Image" width="300" height="200">
+          <p>{{ post.content }}</p>
+        </div>
+      </div>
+      <!-- Additional section for course details -->
+      <!-- <div *ngIf="selectedCourseId === post.courseId" class="course-details">
+        <h3>Course Details</h3>
+        <div class="description">
+          <p>{{ getCourseDescriptionById(post.courseId) }}</p>
+        </div> -->
+        <!-- <h3>Questions</h3>
+        <ul>
+          <li>Question 1: What motivated you to apply for this course?</li>
+          <li>Question 2: How do you plan to use the knowledge gained in this course?</li>
+        </ul> -->
+      </div>
+    </div>
+  

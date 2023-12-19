@@ -101,6 +101,7 @@
 /* Main Content */
 .main-content {
   padding: 16px;
+  padding-bottom: 60px;
 }
 
 /* your-component.css or styles.css */
